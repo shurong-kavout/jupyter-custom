@@ -6,8 +6,40 @@
 {% block login_widget %}
 {% endblock %}
 
-{% block main %}
+{% block stylesheet %}
+{{ super() }}
+<style>
+.caption-container {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.caption {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  vertical-align: middle; 
+  font-weight: 400; 
+  color: #0087cc;
+}
+#login-main .auth-form-header {
+  background: #0087cc;
+}
+#login-main #login_submit {
+  background-color: #0087cc;
+  border-color: #0087cc;
+}
 
+#login-main .form-control:focus, 
+#login-main input[type=submit]:focus {
+    box-shadow: none;
+    border-color: #00a8fb;
+    outline-color: #00a8fb;
+}
+
+</style>
+{% endblock %}
+
+{% block main %}
 {% block login %}
 <div id="login-main" class="container">
 {% if custom_html %}
@@ -20,16 +52,14 @@
 </div>
 {% else %}
 <form action="{{login_url}}?next={{next}}" method="post" role="form">
-  <div class="auth-form-header">
-    Sign in
+
+  <div  class="caption-container">
+    <img src="https://www.kavout.com/wp-content/uploads/2018/11/cropped-banner-logo-192x192.png" width="70px" />
+    <h2 class="caption">Portfolio Studio</h2>
   </div>
+
+  <div class="auth-form-header">Sign in</div>
   <div class='auth-form-body'>
-
-    <p id='insecure-login-warning' class='hidden'>
-    Warning: JupyterHub seems to be served over an unsecured HTTP connection.
-    We strongly recommend enabling HTTPS for JupyterHub.
-    </p>
-
     {% if login_error %}
     <p class="login_error">
       {{login_error}}
@@ -91,11 +121,6 @@
 {% block script %}
 {{ super() }}
 <script>
-if (window.location.protocol === "http:") {
-  // unhide http warning
-  var warning = document.getElementById('insecure-login-warning');
-  warning.className = warning.className.replace(/\bhidden\b/, '');
-}
 // setup onSubmit feedback
 $('form').submit((e) => {
   var form = $(e.target);
