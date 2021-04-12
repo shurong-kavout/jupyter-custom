@@ -1,6 +1,6 @@
 {% extends "page.html" %}
 {% if announcement_login %}
-  {% set announcement = announcement_login %}
+{% set announcement = announcement_login %}
 {% endif %}
 
 {% block login_widget %}
@@ -9,147 +9,123 @@
 {% block stylesheet %}
 {{ super() }}
 <style>
-#login-main {
+  #login-main {
     width: 100%;
     min-height: calc(100vh - 40px);
     margin-top: -20px;
     padding-bottom: 10vh;
     background: linear-gradient(45deg, #e6eaec, #ffffff);
     overflow: hidden;
-}
+  }
 
-#login-main .caption-container {
-  line-height: 72px;
-  margin-bottom: 30px;
-  text-align: center;
-  overflow: hidden；
-}
+  #login-main .caption-container {
+    line-height: 72px;
+    margin-bottom: 30px;
+    text-align: center;
+    overflow: hidden；
+  }
 
-#login-main .caption {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-  vertical-align: middle; 
-  font-weight: 400; 
-  color: #0087cc;
-}
+  #login-main .caption {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+    font-weight: 400;
+    color: #0087cc;
+  }
 
-#login-main .auth-form-header {
-  background-image: linear-gradient(90deg, #00c4e1 0%, #40a4ff 100%);
-}
+  #login-main .auth-form-header {
+    background-image: linear-gradient(90deg, #0087c9 0%, #40a4ff 100%);
+  }
 
-#login-main .form-group .fa {
+  #login-main .form-group .fa {
     display: inline-block;
     top: 26px;
     left: 10px;
     position: relative;
     color: #575757;
-}
+  }
 
-#login-main input[type="text"],
-#login-main input[type="password"]{
+  #login-main input[type="text"],
+  #login-main input[type="password"] {
     padding-left: 30px;
-}
+  }
 
-#login-main .form-control:focus, 
-#login-main input[type=submit]:focus {
+  #login-main .form-control:focus,
+  #login-main input[type=submit]:focus {
     box-shadow: none;
-    border-color: #00a8fb;
-    outline-color: #00a8fb;
-}
+    border-color: #40a4ff;
+    outline-color: #40a4ff;
+  }
 
-#login-main .feedback-container {
+  #login-main .feedback-container {}
 
-}
-
-#login-main #login_submit {
-  margin: 20px 0 16px 0;
-  border-color: #00bfee;
-  background-color: #00bfee;
-}
+  #login-main #login_submit {
+    margin: 20px 0 16px 0;
+    border-color: #40a4ff;
+    background-color: #40a4ff;
+  }
 </style>
 {% endblock %}
 
 {% block main %}
 {% block login %}
 <div id="login-main" class="container">
-{% if custom_html %}
-{{ custom_html | safe }}
-{% elif login_service %}
-<div class="service-login">
-  <a role="button" class='btn btn-jupyter btn-lg' href='{{authenticator_login_url}}'>
-    Sign in with {{login_service}}
-  </a>
-</div>
-{% else %}
-<form action="{{login_url}}?next={{next}}" method="post" role="form">
-
-  <div  class="caption-container">
-    <img src="https://www.kavout.com/wp-content/uploads/2018/11/cropped-banner-logo-192x192.png" width="70px" />
-    <h2 class="caption">Portfolio Studio</h2>
+  {% if custom_html %}
+  {{ custom_html | safe }}
+  {% elif login_service %}
+  <div class="service-login">
+    <a role="button" class='btn btn-jupyter btn-lg' href='{{authenticator_login_url}}'>
+      Sign in with {{login_service}}
+    </a>
   </div>
+  {% else %}
+  <form action="{{login_url}}?next={{next}}" method="post" role="form">
 
-  <div class="auth-form-header">Sign in</div>
-  <div class='auth-form-body'>
-    {% if login_error %}
-    <p class="login_error">
-      {{login_error}}
-    </p>
-    {% endif %}
-    <div class="form-group">
-      <i class="fa fa-user" aria-hidden="true"></i>
-      <input
-        id="username_input"
-        type="text"
-        autocapitalize="off"
-        autocorrect="off"
-        class="form-control"
-        name="username"
-        val="{{username}}"
-        tabindex="1"
-        autofocus="autofocus"
-        placeholder="Username"
-      />
-    </div>
-    <div class="form-group">
-      <i class="fa fa-key" aria-hidden="true"></i>
-      <input
-        type="password"
-        class="form-control"
-        name="password"
-        id="password_input"
-        tabindex="2"
-        placeholder="Password"
-      />
+    <div class="caption-container">
+      <img src="https://www.kavout.com/wp-content/uploads/2018/11/cropped-banner-logo-192x192.png" width="70px" />
+      <h2 class="caption">Portfolio Studio</h2>
     </div>
 
-    <div class="feedback-container">
-      <input
-        id="login_submit"
-        type="submit"
-        class='btn btn-jupyter'
-        value='Sign in'
-        tabindex="3"
-        />
-      <div class="feedback-widget hidden">
-        <i class="fa fa-spinner"></i>
+    <div class="auth-form-header">Sign in</div>
+    <div class='auth-form-body'>
+      {% if login_error %}
+      <p class="login_error">
+        {{login_error}}
+      </p>
+      {% endif %}
+      <div class="form-group">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        <input id="username_input" type="text" autocapitalize="off" autocorrect="off" class="form-control"
+          name="username" val="{{username}}" tabindex="1" autofocus="autofocus" placeholder="Username" />
       </div>
-    </div>
+      <div class="form-group">
+        <i class="fa fa-key" aria-hidden="true"></i>
+        <input type="password" class="form-control" name="password" id="password_input" tabindex="2"
+          placeholder="Password" />
+      </div>
 
-    {% block login_terms %}
-    {% if login_term_url %}
-    <div id="login_terms" class="login_terms">
-    <input type="checkbox" id="login_terms_checkbox" name="login_terms_checkbox" required />
-    {% block login_terms_text %} {# allow overriding the text #}
-    By logging into the platform you accept the <a href="{{ login_term_url }}">terms and conditions</a>.
-    {% endblock login_terms_text %}
-    </div>
-    {% endif %}
-    {% endblock login_terms %}
+      <div class="feedback-container">
+        <input id="login_submit" type="submit" class='btn btn-jupyter' value='Sign in' tabindex="3" />
+        <div class="feedback-widget hidden">
+          <i class="fa fa-spinner"></i>
+        </div>
+      </div>
 
-  </div>
-</form>
-{% endif %}
+      {% block login_terms %}
+      {% if login_term_url %}
+      <div id="login_terms" class="login_terms">
+        <input type="checkbox" id="login_terms_checkbox" name="login_terms_checkbox" required />
+        {% block login_terms_text %} {# allow overriding the text #}
+        By logging into the platform you accept the <a href="{{ login_term_url }}">terms and conditions</a>.
+        {% endblock login_terms_text %}
+      </div>
+      {% endif %}
+      {% endblock login_terms %}
+
+    </div>
+  </form>
+  {% endif %}
 </div>
 {% endblock login %}
 
@@ -158,12 +134,12 @@
 {% block script %}
 {{ super() }}
 <script>
-// setup onSubmit feedback
-$('form').submit((e) => {
-  var form = $(e.target);
-  form.find('.feedback-container>input').attr('disabled', true);
-  form.find('.feedback-container>*').toggleClass('hidden');
-  form.find('.feedback-widget>*').toggleClass('fa-pulse');
-});
+  // setup onSubmit feedback
+  $('form').submit((e) => {
+    var form = $(e.target);
+    form.find('.feedback-container>input').attr('disabled', true);
+    form.find('.feedback-container>*').toggleClass('hidden');
+    form.find('.feedback-widget>*').toggleClass('fa-pulse');
+  });
 </script>
 {% endblock %}
