@@ -97,12 +97,11 @@
       <div class="navbar-header">
         {% block logo %}
         <span id="jupyterhub-logo" class="pull-left">
-            <a href="{{logo_url or base_url}}">
-              <img src='{{base_url}}logo' alt='Portfolio Studio' class='jpy-logo' title='Home'/>
-            </a>
+          <a href="{{logo_url or base_url}}">
+            <img src='{{base_url}}logo' alt='Portfolio Studio' class='jpy-logo' title='Home'/>
+          </a>
         </span>
         {% endblock %}
-        {# 已登录 #}
         {% if user %}
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#thenavbar" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
@@ -114,7 +113,6 @@
       </div>
 
       <div class="collapse navbar-collapse" id="thenavbar">
-        {# 已登录 #}
         {% if user %}
         <ul class="nav navbar-nav">
           {% block nav_bar_left_items %}
@@ -136,15 +134,13 @@
           {% endblock %}
         </ul>
         {% endif %}
-
-        {# 未登录 #}
         <ul class="nav navbar-nav navbar-right">
           {% block nav_bar_right_items %}
             <li>
               {% block login_widget %}
                 <span id="login_widget">
                   {% if user %}
-		            <p class="navbar-text">{{user.name}}</p>
+		                <p class="navbar-text">{{user.name}}</p>
                     <a id="logout" role="button" class="navbar-btn btn-sm btn btn-default" href="{{logout_url}}"> <i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
                   {% else %}
                     <a id="login" role="button" class="btn-sm btn navbar-btn btn-default" href="{{login_url}}">Login</a>
