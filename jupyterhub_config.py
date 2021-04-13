@@ -72,7 +72,15 @@
 
 # Allow named single-user servers per user
 #  Default: False
-# c.JupyterHub.allow_named_servers = False
+c.JupyterHub.allow_named_servers = True
+
+c.CDSDashboardsConfig.builder_class = 'cdsdashboards.builder.processbuilder.ProcessBuilder'
+
+from cdsdashboards.app import CDS_TEMPLATE_PATHS
+from cdsdashboards.hubextension import cds_extra_handlers
+
+c.JupyterHub.template_paths = CDS_TEMPLATE_PATHS
+c.JupyterHub.extra_handlers = cds_extra_handlers
 
 # Answer yes to any questions (e.g. confirm overwrite)
 #  Default: False
@@ -590,6 +598,7 @@
 #    - simple: jupyterhub.spawner.SimpleLocalProcessSpawner
 #  Default: 'jupyterhub.spawner.LocalProcessSpawner'
 # c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
+c.JupyterHub.spawner_class = 'cdsdashboards.hubextension.spawners.VariableLocalProcessSpawner'
 
 # Path to SSL certificate file for the public facing interface of the proxy
 #
